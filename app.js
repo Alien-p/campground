@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 const express     = require( "express" );
 const app         = express();
 const bodyParser  = require( "body-parser" );
@@ -80,13 +81,14 @@ app.post( "/campgrounds/:id", ( req, res ) => {
 					console.log( err );
 				} else {
 					foundCampground.comments.push( createdComment );
-					foundCampground.save();
+                    foundCampground.save();
+                    res.redirect( "/campgrounds/" + req.params.id );
 				}
 			} );
 		}
 	} );
 
-	res.redirect( "/campgrounds/" + req.params.id );
+	
 } );
 
 
