@@ -1,17 +1,23 @@
 {
-  "name": "v1",
+  "name": "campground",
   "version": "1.0.0",
-  "description": "YelpCamp v1",
+  "description": "* Add Landing Page\r * Add Campgrounds Page that lists all campgrounds",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Colt Steele",
+  "repository": {
+    "type": "git",
+    "url": "git+https://al1en@bitbucket.org/al1en/campground.git"
+  },
+  "author": "Ildar",
   "license": "ISC",
+  "homepage": "https://bitbucket.org/al1en/campground#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
-    "mongoose": "^5.6.2"
+    "mongoose": "^5.6.2",
+    "npm": "^6.9.2"
   }
 }
