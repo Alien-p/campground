@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+<div class="container">
+    <h1><%=campground.name%></h1>
+
+    <img src="<%= campground.image %>">
+
+    <p><%= campground.description %></p>
+
+    <% campground.comments.forEach((comment) => { %>
+        <p><strong><%= comment.author %></strong>: <%= comment.text %></p>
+    <% }) %>
+
+    <form action="/campgrounds/<%= campground._id %>" method="POST" >
+        <div class="form-group">
+            <input class="form-control" type="text" name="author" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="text" placeholder="Text">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary">Add comment</button>
+        </div>
+    </form>
+    <a href="/campgrounds">Go Back</a>
+</div>
+<% include ../partials/footer %>

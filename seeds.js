@@ -50,6 +50,7 @@ function initDB() {
                             } else {
                                 newCamp.comments.push(comment);
                                 newCamp.save();
+                                console.log("DB Initialized")
                             }
                         });
                     }
