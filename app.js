@@ -1,3 +1,4 @@
+/* eslint-disable space-in-parens */
 /* eslint-disable indent */
 const express     = require( "express" );
 const app         = express();
@@ -8,7 +9,8 @@ const mongoose    = require( "mongoose" );
 const seedDB      = require( "./seeds" );
 
 mongoose.connect( "mongodb://localhost/yelp_camp", { useNewUrlParser: true } );
-app.use( bodyParser.urlencoded( { extended: true } ) );
+app.use( bodyParser.urlencoded( { extended: true } ));
+app.use( express.static( __dirname + "/public" ));
 app.set( "view engine", "ejs" );
 seedDB();
 
