@@ -1,6 +1,7 @@
 /* eslint-disable space-in-parens */
 const Campground = require( "./models/campground" );
-const Comment = require( "./models/comment" );
+const Comment 	 = require( "./models/comment" );
+const User 		 = require("./models/user");
 
 const data = [
 	{
@@ -37,7 +38,7 @@ function initDB() {
 			if ( err ) {
 				console.log( err );
 			}
-
+			
 			//Feeling both DBs
 			data.forEach( seed => {
 				Campground.create( seed, ( err, newCamp ) => {
