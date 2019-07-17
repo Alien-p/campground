@@ -1,3 +1,5 @@
+"C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath="c:\data\db"
+
 RESTFUL ROUTES
 
 name      url      verb    desc.

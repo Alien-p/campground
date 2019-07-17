@@ -4,15 +4,20 @@ const express     = require("express");
 const app         = express();
 const bodyParser  = require("body-parser");
 const mongoose    = require("mongoose");
-const passport	  = require("passport");
-const LocalStrategy = require("passport-local");
-const User 			= require("./models/user");
-const Campground  = require("./models/campground");
-const Comment     = require("./models/comment");
 const seedDB      = require("./seeds");
 const session 	  = require("express-session");
+const campRoutes    = require("./routes/campgrounds");
+const commentRoutes = require("./routes/comments");
+const authRoutes = require("./routes/authentication");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User	   = require("./models/user");
 
 
+//passport config
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // mongoose
 mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
@@ -31,16 +36,16 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//passport config
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
 
 app.use(function(req, res, next) {
 	res.locals.currentUser = req.user;
 	next();
 });
 
+app.use(campRoutes);
+app.use(commentRoutes);
+app.use(authRoutes);
 
 
 app.listen( 8000, () => {
