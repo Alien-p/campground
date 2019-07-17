@@ -9,3 +9,12 @@
 .thumbnail .caption-full {
     padding: 9px;
 }
+
+#loginas {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #777;
+}
