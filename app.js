@@ -8,10 +8,10 @@ const seedDB      = require("./seeds");
 const session 	  = require("express-session");
 const campRoutes    = require("./routes/campgrounds");
 const commentRoutes = require("./routes/comments");
-const authRoutes = require("./routes/authentication");
-const passport = require("passport");
+const authRoutes    = require("./routes/authentication");
+const passport      = require("passport");
 const LocalStrategy = require("passport-local");
-const User	   = require("./models/user");
+const User	        = require("./models/user");
 
 
 //passport config

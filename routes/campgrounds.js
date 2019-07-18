@@ -1,5 +1,5 @@
-const express = require("express");
-const router  = express.Router();
+const express 	  = require("express");
+const router  	  = express.Router();
 const Campground  = require("../models/campground");
 
 /**
@@ -24,10 +24,15 @@ router.get( "/campgrounds", ( req, res ) => {
 // CREATE - add new campground to DB
 router.post( "/campgrounds", isLoggedIn, ( req, res ) => {
 	// get data from form and add to campgrounds array
-	var name = req.body.name;
-	var image = req.body.image;
-	var desc = req.body.description;
-	var newCampground = { name: name, image: image, description: desc };
+	const name = req.body.name;
+	const image = req.body.image;
+	const desc = req.body.description;
+	const author = {
+		id: req.user._id,
+		username: req.user.username
+	}
+
+	const newCampground = { name: name, image: image, description: desc, author: author};
     
 	// Create a new campground and save to DB
 	Campground.create( newCampground, ( err ) => {
@@ -46,7 +51,7 @@ router.get( "/campgrounds/new", isLoggedIn, function( req, res ) {
 } );
 
 // SHOW - shows more info about one campground
-router.get( "/campgrounds/:id", isLoggedIn, ( req, res ) => {
+router.get( "/campgrounds/:id", ( req, res ) => {
 	// find the campground with provided ID
 	Campground.findById( req.params.id ).populate( "comments" ).exec( function( err, foundCampground ) {
 		if( err ) {
