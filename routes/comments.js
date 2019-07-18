@@ -6,25 +6,32 @@ const Comment     = require("../models/comment");
 /**
  * Comments routes
  */
-router.post( "/campgrounds/:id", isLoggedIn, ( req, res ) => {
-	const newComment = req.body.comment;
-	newComment.author = req.user.username;
+router.post( "/campgrounds/:id", isLoggedIn, (req, res) => {
+	const newComment = new Comment(
+		{
+			text: req.body.comment.text,
+			author: {
+				id: req.user.id,
+				username: req.user.username
+			}
+		});
 
-	Comment.create( newComment, ( err, createdComment ) => {
-		if( err ) {
-			console.log( err );
+
+	Comment.create(newComment, (err, createdComment) => {
+		if(err) {
+			console.log(err);
 		} else {
-			Campground.findById( req.params.id ).populate( "comments" ).exec( ( err, foundCampground ) => {
-				if( err ) {
-					console.log( err );
+			Campground.findById(req.params.id).populate("comments").exec((err, foundCampground) => {
+				if(err) {
+					console.log(err);
 				} else {
-					foundCampground.comments.push( createdComment );
+					foundCampground.comments.push(createdComment);
                     foundCampground.save();
-                    res.redirect( "/campgrounds/" + req.params.id );
+                    res.redirect("/campgrounds/" + req.params.id);
 				}
 			});
 		}
-	} );
+	});
 } );
 
 function isLoggedIn(req, res, next) {

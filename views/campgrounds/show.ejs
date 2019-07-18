@@ -21,7 +21,7 @@
             <div class="well">
                 <% campground.comments.forEach((comment) => { %>
                     <div class="row">
-                        <p><strong><%= comment.author %></strong>: <%= comment.text %></p>
+                        <p><strong><%= comment.author.username %></strong>: <%= comment.text %></p>
                         <hr>
                     </div>
                 <% }) %>
