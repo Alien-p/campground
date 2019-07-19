@@ -9,17 +9,20 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="thumbnail">
-                <img class="img-responsive" src="<%= campground.image %>">
-                <div class="caption-full">
-                    <h4 class="pull-right">Price/night: XX$</h4>
-                    <h4><%=campground.name%></h4>
-                    <p><%= campground.description %></p>
-                    <p>
-                        <em>Submitted by: <%= campground.author.username %></em>
-                    </p>
+            <form action="/campgrounds/<%= campground._id %>/edit" method="get"></form>
+                <div class="thumbnail">
+                    <img class="img-responsive" src="<%= campground.image %>">
+                    <div class="caption-full">
+                        <h4 class="pull-right">Price/night: XX$</h4>
+                        <h4><%=campground.name%></h4>
+                        <p><%= campground.description %></p>
+                        <button class="btn btn-success pull-right">Edit</button>
+                        <p>
+                            <em>Submitted by: <%= campground.author.username %></em>
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </form>
 
             <div class="well">
                 <% campground.comments.forEach((comment) => { %>

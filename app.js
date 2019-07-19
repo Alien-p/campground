@@ -6,12 +6,13 @@ const bodyParser  = require("body-parser");
 const mongoose    = require("mongoose");
 const seedDB      = require("./seeds");
 const session 	  = require("express-session");
-const campRoutes    = require("./routes/campgrounds");
-const commentRoutes = require("./routes/comments");
-const authRoutes    = require("./routes/authentication");
-const passport      = require("passport");
-const LocalStrategy = require("passport-local");
-const User	        = require("./models/user");
+const campRoutes     = require("./routes/campgrounds");
+const commentRoutes  = require("./routes/comments");
+const authRoutes     = require("./routes/authentication");
+const passport       = require("passport");
+const LocalStrategy  = require("passport-local");
+const User	         = require("./models/user");
+const methodOverride = require("method-override");
 
 
 //passport config
@@ -26,8 +27,7 @@ mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
 app.use(bodyParser.urlencoded( { extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static( __dirname + "/public" ));
-seedDB();
-
+//seedDB();
 app.use(session({
     secret: "Once again Rusty wins cutest dog!",
     resave: false,
@@ -35,6 +35,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(methodOverride("_method"));
 
 
 
