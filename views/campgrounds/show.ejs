@@ -9,20 +9,23 @@
             </div>
         </div>
         <div class="col-md-9">
-            <form action="/campgrounds/<%= campground._id %>/edit" method="get"></form>
-                <div class="thumbnail">
-                    <img class="img-responsive" src="<%= campground.image %>">
-                    <div class="caption-full">
-                        <h4 class="pull-right">Price/night: XX$</h4>
-                        <h4><%=campground.name%></h4>
-                        <p><%= campground.description %></p>
-                        <button class="btn btn-success pull-right">Edit</button>
-                        <p>
-                            <em>Submitted by: <%= campground.author.username %></em>
-                        </p>
-                    </div>
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= campground.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right">Price/night: XX$</h4>
+                    <h4><%=campground.name%></h4>
+                    <p><%= campground.description %></p>
+                    <p>
+                        <em>Submitted by: <%= campground.author.username %></em>
+                    </p>
+                    <% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+                        <a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                        <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST" id="delete-form">
+                            <button class="btn btn-warning">Remove</a>
+                        </form>
+                    <% } %>
                 </div>
-            </form>
+            </div>
 
             <div class="well">
                 <% campground.comments.forEach((comment) => { %>
