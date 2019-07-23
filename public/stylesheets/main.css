@@ -19,6 +19,10 @@
     color: #777;
 }
 
-#delete-form {
+#delete-camp-form {
+    display: inline;
+}
+
+#delete-comment-form {
     display: inline;
 }
