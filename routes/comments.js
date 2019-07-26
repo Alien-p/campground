@@ -2,13 +2,13 @@ const express = require("express");
 const router  = express.Router();
 const Campground  = require("../models/campground");
 const Comment     = require("../models/comment");
-
+const middleware   = require("../middleware/index");
 /**
  * Comments routes
  */
 
  //Add new comment rout
-router.post( "/campgrounds/:id", isLoggedIn, (req, res) => {
+router.post( "/campgrounds/:id", middleware.isLoggedIn, (req, res) => {
 	const newComment = new Comment(
 		{
 			text: req.body.comment.text,
@@ -38,7 +38,7 @@ router.post( "/campgrounds/:id", isLoggedIn, (req, res) => {
 } );
 
 //Update and delete comment routs
-router.delete("/campgrounds/:id/:comment_id", checkCommentsOwner, (req, res) => {
+router.delete("/campgrounds/:id/:comment_id", middleware.checkCommentsOwner, (req, res) => {
 	Comment.findByIdAndDelete(req.params.comment_id, (err) => {
 		if(err) {
 			console.log(err);
@@ -49,28 +49,19 @@ router.delete("/campgrounds/:id/:comment_id", checkCommentsOwner, (req, res) => 
 
 });
 
-function isLoggedIn(req, res, next) {
-	if(req.isAuthenticated()) {
-		next();
-	}
-	res.redirect("back");
-}
-
-function checkCommentsOwner(req, res, next) {
-	if(req.isAuthenticated()) {
-		Comment.findById(req.params.comment_id, (err, foundComment) => {
-			if(err) {
-				console.log(err);
-				res.redirect("back");
-			} else {
-				if(foundComment.author.id.equals(req.user._id)) {
-					next();
-				} else {
-					res.redirect("back");
-				}
-			}
-		})
-	}
-}
 
 module.exports = router;
+
+function reverseInt(num) {
+	num = num + "";
+	let revertedNum = "";
+	
+	for (let i = num.length-1; i >= 0; i--) {
+		revertedNum += num[i];
+	}
+	if(num.slice(-1) == "-") {
+		num = "-" + num;
+		num.substr(revertedNum.length-1);
+	}
+	return Number(revertedNum);
+}

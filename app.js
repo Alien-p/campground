@@ -4,7 +4,6 @@ const express     = require("express");
 const app         = express();
 const bodyParser  = require("body-parser");
 const mongoose    = require("mongoose");
-const seedDB      = require("./seeds");
 const session 	  = require("express-session");
 const campRoutes     = require("./routes/campgrounds");
 const commentRoutes  = require("./routes/comments");
@@ -13,8 +12,9 @@ const passport       = require("passport");
 const LocalStrategy  = require("passport-local");
 const User	         = require("./models/user");
 const methodOverride = require("method-override");
+const flash          = require("connect-flash");
 
-
+app.use(flash());
 //passport config
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
@@ -27,7 +27,6 @@ mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
 app.use(bodyParser.urlencoded( { extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static( __dirname + "/public" ));
-//seedDB();
 app.use(session({
     secret: "Once again Rusty wins cutest dog!",
     resave: false,
@@ -40,7 +39,8 @@ app.use(methodOverride("_method"));
 
 
 app.use(function(req, res, next) {
-	res.locals.currentUser = req.user;
+    res.locals.currentUser = req.user;
+    res.locals.message =req.flash("error");
 	next();
 });
 

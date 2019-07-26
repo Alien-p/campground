@@ -35,7 +35,7 @@
                     <div class="row">
                         <% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
                             <form class="pull-right" action="/campgrounds/<%= campground._id %>/<%= comment._id %>?_method=DELETE" method="POST" id="delete-comment-form">
-                                <button class="btn btn-danger btn-xs">Remove</button>
+                                <button class="btn btn-danger btn-sm">Delete comment</button>
                             </form>
                         <% } %>
                         <p><strong><%= comment.author.username %></strong>: <%= comment.text %></p>
