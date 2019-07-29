@@ -13,13 +13,13 @@ const passport = require("passport");
  router.post("/register", (req, res) => {
 	const newUser = new User({ username: req.body.username });
 	
-	User.register(newUser, req.body.password, (err) => {
+	User.register(newUser, req.body.password, (err, user) => {
 		if(err) {
-			console.log(err);
-			return res.send("error");
+			req.flash("error", err.message);
+			return res.redirect("/register");
 		}
 		passport.authenticate("local")(req, res, function() {
-			console.log("Sign up success");
+			req.flash("success", "Welcome to YelpCamp " + user.username);
 			return res.redirect("/campgrounds");
 		});
 	});
@@ -30,11 +30,13 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", passport.authenticate("local", { failureRedirect: "/login" }), function(req, res) {
-	res.redirect("/");
+	req.flash("success", "Welcome to YelpCamp " + req.body.username);
+	res.redirect("/campgrounds");
 });
 
 router.get("/logout", (req , res) => {
 	req.logOut();
+	req.flash("success", "Logged you out!")
 	res.redirect("/campgrounds");
 });
 

@@ -7,7 +7,7 @@ const middleware   = require("../middleware/index");
  * Camp routes
  */
 router.get( "/", ( req, res ) => {
-	res.redirect( "/campgrounds" );
+	res.render( "landing" );
 } );
 
 // INDEX - show all campgrounds

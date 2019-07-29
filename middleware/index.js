@@ -14,14 +14,17 @@ middlewareObj.checkCampOwner = function (req, res, next) {
 	if(req.isAuthenticated()) {
 		Campground.findById(req.params.id, (err, foundCampground) => {
 			if(err) {
-				redirect("back");
+				req.flash("error", "Campground does not exist");
+				res.redirect("back");
 			} else if(foundCampground.author.id.equals(req.user._id)) {
 				return next();
 			} else {
+				req.flash("error", "You don't have parmission to do that");
 				res.redirect("back");
 			}
 		});
 	} else {
+		req.flash("error", "Please Login First!")
 		res.redirect("back");
 	}
 }

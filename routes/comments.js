@@ -29,7 +29,8 @@ router.post( "/campgrounds/:id", middleware.isLoggedIn, (req, res) => {
 					console.log(err);
 				} else {
 					foundCampground.comments.push(createdComment);
-                    foundCampground.save();
+					foundCampground.save();
+					req.flash("success", "Comment added");
                     res.redirect("/campgrounds/" + req.params.id);
 				}
 			});
@@ -43,6 +44,7 @@ router.delete("/campgrounds/:id/:comment_id", middleware.checkCommentsOwner, (re
 		if(err) {
 			console.log(err);
 		} else {
+			req.flash("success", "Comment deleted")
 			res.redirect("/campgrounds/" + req.params.id)
 		}
 	});
