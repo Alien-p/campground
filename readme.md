@@ -1,10 +1,16 @@
 "C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath="c:\data\db"
 
-RESTFUL ROUTES
+Getting started on Heroku
+Install heroku
+Commands:
+- heroku login
+- git push heroku master
 
-name      url      verb    desc.
-===============================================
-INDEX   /dogs      GET   Display a list of all dog
-NEW     /dogs/new  GET   Displays form to make a new dog
-CREATE  /dogs      POST  Add new dog to DB
-SHOW    /dogs/:id  GET   Shows info about one dog
+Open web site
+
+View logs command
+- heroku logs --tail
+
+Web site link
+https://salty-reaches-78337.herokuapp.com/ 
+
