@@ -22,3 +22,6 @@ https://salty-reaches-78337.herokuapp.com/
 git add .
 git commit -m "some text"
 git push 
+
+# nodemon
+npm i -g nodemon
