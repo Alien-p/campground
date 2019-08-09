@@ -54,6 +54,6 @@ app.use(commentRoutes);
 app.use(authRoutes);
 
 
-app.listen( 8000, () => {
+app.listen( process.env.PORT, process.env.IP, () => {
 	console.log( "The YelpCamp Server Has Started!" );
 } );
