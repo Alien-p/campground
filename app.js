@@ -13,6 +13,8 @@ const LocalStrategy  = require("passport-local");
 const User	         = require("./models/user");
 const methodOverride = require("method-override");
 const flash          = require("connect-flash");
+const port           = process.env.PORT || 8000;
+const url            = process.env.DATABASEURL || "mongodb://localhost/yelp_camp";
 
 app.use(flash());
 //passport config
@@ -21,7 +23,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // mongoose
-mongoose.connect("mongodb+srv://ildar1010:Gfhjkm23344%21@cluster0-0xnmf.mongodb.net/test?retryWrites=true&w=majority", { 
+mongoose.connect(url, { 
     useNewUrlParser: true, 
     useCreateIndex: true
 }).then(() => { console.log('Connected to DB'); }).catch(err => { console.log('THE ERROR:', err.message); });
@@ -54,6 +56,6 @@ app.use(commentRoutes);
 app.use(authRoutes);
 
 
-app.listen( process.env.PORT, process.env.IP, () => {
+app.listen( port, process.env.IP, () => {
 	console.log( "The YelpCamp Server Has Started!" );
 } );
